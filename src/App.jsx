@@ -15,9 +15,11 @@ const newBookmarks = [...bookmarks, blog];
  setBookmarks(newBookmarks);
  setLike(!like);
  }
- const handleMarkAsRead = (time)=>{
+ const handleMarkAsRead = (id, time)=>{
 const newMarkAsRead = readingTime + time;
- setReadingTime(newMarkAsRead); 
+ setReadingTime(newMarkAsRead);
+ const  remainingBookmarks = bookmarks.filter(bookmark=>bookmark.id !== id);
+ setBookmarks(remainingBookmarks)
  }
 
   return (
