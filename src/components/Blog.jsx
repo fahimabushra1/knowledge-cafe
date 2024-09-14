@@ -1,10 +1,10 @@
 import { IoMdBookmarks } from "react-icons/io";
+import PropTypes from "prop-types";
 
-
-const Blog = ({blog}) => {
+const Blog = ({blog, handleAddToBookmark, handleMarkAsRead, like}) => {
     const {id, cover, title, author_img, author, posted_date, reading_time, hashtags} = blog
     return (
-        <div className="space-y-6">
+        <div className="space-y-6 mb-12">
             <img className="rounded-xl mb-4" src={cover} alt="cover" />
             <div className="flex justify-between items-center">
                 <div className="flex">
@@ -18,8 +18,8 @@ const Blog = ({blog}) => {
                 </div>
                 <div className="mr-16">
                     <span className="text-sm text-slate-700">{reading_time} min read</span>
-                    <button>
-                        <IoMdBookmarks className="text-xl ml-2" />
+                    <button  onClick={()=>handleAddToBookmark(blog)}>
+                        <IoMdBookmarks className={like ? "text-red-500 text-xl ml-2"  : "text-xl ml-2 text-blue-500"} />
                         </button>
                 </div>
             </div>
@@ -32,10 +32,16 @@ const Blog = ({blog}) => {
                 )
             }
           </p>
-          <button className="text-purple-900 underline font-bold">mark as read</button>
+          <button onClick={()=>handleMarkAsRead(reading_time)} className="text-purple-900 underline font-bold">mark as read</button>
           </div>
         </div>
     );
 };
+Blog.propTypes = {
+    blog: PropTypes.object.isRequired,
+    handleAddToBookmark:PropTypes.func,
+    handleMarkAsRead: PropTypes.func,
+    like: PropTypes.boolean
+}
 
 export default Blog;
